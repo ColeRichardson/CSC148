@@ -36,9 +36,17 @@ Steps:
 34) in the main portion i decided to start with the prompts, asking the user for the type of the building, the address and the number of rooms.
 35) next i decided to assign the user input to the address of the building which should always be unique logically.
 36) realized that if the user doesnt type in a proper building type i should ask them again so i enclosed the portion that asks the user for the building information in a while loops that only run when check = True, so i need to add a check variable and initialize it as True, once the user has typed a correct building type check gets updated to False
-37) also added an if statement before the rooms information portion to make sure that it only gets to run once the user has chosen a correct bulding type.
-
-
+37) also added an if statement before the rooms information portion to make sure that it only gets to run once the user has chosen a correct building type.
+38) changed main body from holding the building object in the address to just a temp variable called temp
+39) added if statement in the building type check for house, if the user inputs more than 10 rooms it will ask again for the numer of rooms and tell the user the max is 10
+40) added if statement in the for loop that prompts user for room name and square footage, to catch if the name of the room is bedroom or Bedroom and to catch if the square footage is less than 100. prompts user to input again
+41) tested the cases where the user inputs rooms more than 10 for a house, sqrft for a business less than 100, and name of room in business being bedroom or Bedroom
+42) my first and third test case worked fine, however the second didnt work as intended, instead of telling the user their mistake in room name after the sqrft of the room has been typed i changed it so that it would tell the user the name is wrong as soon as they type it.
+43) tested the second and third cases again, both of these cases worked fine.
+44) next i tried the case where the user doesnt type a correct type of a building, this case didnt work as intended. so i added an if statement as soon as the building type is typed by the user to check if its not a valid type, prints the message sorry not a valid building type try again (case sensitive), and continues the loop after this, from the top. also removed my else statement form the end. that says to try again.
+45) tested the case where the user types in a wrong building type again, and this worked to my expectations.
+46) now that ive tested everything i think its good to go so i did git add . in cmd and then did git commit -m and typed a message, then i did git push
+47) last step was to submit on markus.
 
 
 

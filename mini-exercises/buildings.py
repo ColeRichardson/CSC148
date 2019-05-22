@@ -183,26 +183,35 @@ if __name__ == '__main__':
     check = True
     while check:
         building = input('please enter the type of building, must be a building, house, or business.')
+        if building != 'building' or building != 'business' or building != 'house':
+            print('sorry you didnt type in a correct name for the building type, its case sensitive, please try again')
+            continue
         address = input('please enter the address of the building ?')
         num_rooms = int(input('please enter the number of rooms.'))
         if building == 'building':
             print(address)
-            address = Building(address, num_rooms)
+            temp = Building(address, num_rooms)
             print(address)
             check = False
         elif building == 'house':
-            address = House(address, num_rooms)
+            if num_rooms > 10:
+                num_rooms = int(input('sorry, the maximum number of rooms for a house is 10, please enter a number of rooms less than or equal to 10'))
+            temp = House(address, num_rooms)
             check = False
         elif building == 'business':
-            address = Business(address, num_rooms)
+            temp = Business(address, num_rooms)
             check = False
-        else:
-            print('sorry you did not type the type of building properly, re-run the program to try again')
 
     if not check:
         for i in range(0, num_rooms):
             name = input('what is the name of the room?')
-            sqrft = input('what is the square footage of the room?')
+            if building == 'business':
+                if name == 'Bedroom' or name == 'bedroom':
+                    name = input('sorry, a room in a business cannot be named bedroom or Bedroom please choose another name')
+            sqrft = float(input('what is the square footage of the room?'))
+            if building == 'business':
+                if sqrft < 100:
+                    sqrft = float(input('sorry the minimum square footage for a room in a business is 100 please enter a number for square footage greater than or equal to 100'))
             room = Room(name, sqrft)
-            address.add_room(room)
+            temp.add_room(room)
 
