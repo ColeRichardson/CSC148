@@ -1,0 +1,44 @@
+Steps:
+1) initialized private github repo to make tracking changes easier.
+2) read over the instructions and decided on building as my first class, wrote single line description of the class
+3) in the building class I added some attribute doctest examples to figure out what attributes the class will need and for testing purposes later on.
+4) after making the doctests i decided on the following attributes for the building class: address:str and num_rooms:int.
+5) next I made the building class initializer to initialize Building objects, takes in an address and number of rooms, also did the docstring with some examples.
+6) after reading the instructions again i also decided to make a class called Room and also did some doctest examples.
+7) made the initializer for the room class, added doctest examples, and also decided on the following attributes for a room: name: str and sqr_ft: float.
+7) now im thinking im going to use composition to represent the rooms in a house, i already have the room class done, so im going to add an attribute to buildings called rooms which stores the room objects of that building in a list, initialized as an empty list.
+8) next i made a description and doctest examples for the __str__ method in the building class to print the sum of the square footages of all the rooms in the building.
+9) while doing step 8 i realized i would need a new method for the building class to add a room to the building, i called this add_room, it takes in a room object and appends it to the end of self.rooms
+10) now i implemented the __str__ method for the building class to run through self.rooms and add each self.sqr_ft of each room the the sum_sqft counter variable, then return that variable.
+11) next i made the house class, which is a subclass of the parent class building, since most attributes will be the same with a few restrictions and a different __str__ method.
+12) i wrote the doctest examples and type contracts for the house class
+13) next i made the class initializer for the house class, just rewrote the initializer for the building class and added the condition that num_rooms <= 10.
+14) next i wrote the __str__ method to print the welcome message and the details of each room seperated by commas, also wrote docstring with examples.
+15) now im going to make another class called business which is a subclass of the Building parent class, since again most of the attributes and methods will be the same will some differences i will be able to account for
+16) i wrote the description, doctest examples and type contracts for the Business class
+17) implemented the __init__ and __str__ methods with description, doctest examples, and type contracts.
+18) now i realized i need another method to rename the room, called rename_room, in the Building superclass since we will need this method for all the subclasses, and i will also need to override this method in the Business subclass since the implementation for a business is slightly different.
+19) implemented rename_room method in the building class to cover the case for all rooms where just the name is changed, given the old name, also added description and doctests examples
+20) realized that i need to specify that in the rename_room method, and in general, when we initialize the room the name of the object will be the same as the room name
+21) also i realized that i could remove the __str__ method in the business subclass since the method is the same as the parent class implementation
+22) after setting up the rename_room method in the business class i realized my previous idea of keeping the room object variable name and using that to change name wont work, because in the case that we want to rename a room that has already been renamed the old variable name wouldnt change and would cause issues.
+23) next i changed the way that the rename_room method in the superclass Building works to loop through the list of rooms in the building, rooms, and as soon as the room name is the same as old, to rename it to the new name. also changed the type contract for old to be a str instead of a room object
+24) while implementing the new rename_room method in the building class i realized another issue occurs, if i loop through and 2 rooms have the same name i could either change both or only change the first occurence.
+25) after thinking about step 24 some more i decided to add the precondition to the building superclass that all room names must be unique. so that there will only be one name to change when looping through.
+26) also add the precondition in step 25 to the business and house classes for clarity.
+27) after reading the instructions over again i realized i dont need to make a new rename_room method for the business class as it would be the same as the parent classes implementation, so i renamed rename_room in the business class to change_sqrft
+28) changed the description and doctest examples for the change_sqrft method, and also changed the variables it takes in to be the name of the room and the new square footage of the room.
+29) implemented the new change_sqrft method in the business subclass
+30) now i think all my methods are done so i went through all my doctests and added some to make sure all basic usage is covered for each method in the doctests.
+31) now i run all my doctests to make sure everything works as intended
+32) after running the doctests several times i had to adjust some of my tests as well as changing expected outputs, also decided to only use single quotes for everything.
+33) now that everything works according to my doctests i am going to start on the main portion
+34) in the main portion i decided to start with the prompts, asking the user for the type of the building, the address and the number of rooms.
+35) next i decided to assign the user input to the address of the building which should always be unique logically.
+36) realized that if the user doesnt type in a proper building type i should ask them again so i enclosed the portion that asks the user for the building information in a while loops that only run when check = True, so i need to add a check variable and initialize it as True, once the user has typed a correct building type check gets updated to False
+37) also added an if statement before the rooms information portion to make sure that it only gets to run once the user has chosen a correct bulding type.
+
+
+
+
+

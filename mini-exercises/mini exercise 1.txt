@@ -1,0 +1,53 @@
+==================
+Mini-Exercise #1
+==================
+
+Write a series of classes, complete with documentation that satisfy the following specification.
+
+* A building has an address (an arbitrary string), and a number of rooms, provided at the time of construction.
+
+* A room has a name (an arbitrary string) and a square_footage (float), provided at the time of
+construction.
+
+* When printed, a building prints the sum of the square footages of all of its rooms
+
+* A house is a type of building with at most 10 rooms, and prints "Welcome to our house", plus the details of all of its rooms (name and square footage, separated by commas)
+
+* A business may have any number of rooms, but no room may be named Bedroom, or have a square footage of less than 100...
+
+* It is possible to rename any room in any building (by specifying an old and a new name), but only a business can change the square footage of their rooms (by specifying the room name and the new square footage)
+
+--
+
+Write a main code body (that should only execute when this file is run directly, not when it
+is imported), to perform the following:
+
+1. Prompt the user for a building type (that is either "building", "house", or "business"), an address, and a number of rooms.
+2. Using this number of rooms, ask for room name and square footage repeatedly until that many rooms have been created.
+3. Create a building of the chosen type, with the given address, and this list of rooms that you created in Step 2.
+
+Main code body should look like this
+
+if __name__ == "__main__":
+	# code
+
+
+==================
+To hand in
+==================
+
+Where:
+On MarkUs (link is on course website)
+
+When:
+By next week Wednesday at midnight
+
+What:
+Two files-
+1) buildings.py with all the above code
+2) process.txt with a record of your thoughts, rough notes, failed attempts, things that you tried to get to work that didn't work, etc. e.g. "My first step was to figure out what my main classes will be. I figured out they were ... And then I tried to write code for ... This code didn't work because ..."
+
+Evaluation:
+You will be marked out of 2.
+1 mark for the code, 1 mark for the process.txt file.
+You will be marked mainly based on showing reasonable effort; not for correctness.
