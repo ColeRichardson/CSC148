@@ -59,4 +59,3 @@ def is_balanced(s:str):
             bracket_stack.pop()
             
     return bracket_stack.is_empty()
-
