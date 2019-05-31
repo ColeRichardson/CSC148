@@ -64,20 +64,33 @@ class Player(Actor):
             new_x -= 1
             if isinstance(game.get_actor(new_x, new_y), Wall):
                 new_x = self.x
+            if isinstance(game.get_actor(new_x, new_y), Star):
+                self._stars_collected += 1
+                game.remove_actor(game.get_actor(new_x, new_y))
         # TODO: Add code here to complete relevant tasks from assignment handout
         elif game.keys_pressed[pygame.K_RIGHT] or game.keys_pressed[pygame.K_d]:
             new_x += 1
             if isinstance(game.get_actor(new_x, new_y), Wall):
                 new_x -= 1
+            if isinstance(game.get_actor(new_x, new_y), Star):
+                self._stars_collected += 1
+                game.remove_actor(game.get_actor(new_x, new_y))
 
         elif game.keys_pressed[pygame.K_UP] or game.keys_pressed[pygame.K_w]:
             new_y -= 1
             if isinstance(game.get_actor(new_x, new_y), Wall):
                 new_y += 1
+            if isinstance(game.get_actor(new_x, new_y), Star):
+                self._stars_collected += 1
+                game.remove_actor(game.get_actor(new_x, new_y))
+
         elif game.keys_pressed[pygame.K_DOWN] or game.keys_pressed[pygame.K_s]:
             new_y += 1
             if isinstance(game.get_actor(new_x, new_y), Wall):
                 new_y -= 1
+            if isinstance(game.get_actor(new_x, new_y), Star):
+                self._stars_collected += 1
+                game.remove_actor(game.get_actor(new_x, new_y))
 
         self.x, self.y = new_x, new_y
 
