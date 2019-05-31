@@ -57,10 +57,10 @@ if __name__ == "__main__":
     # TODO: (Task 3) ADD CODE TO COMPLETE TASK 3 BELOW
     num_stars = 0
     while num_stars < 8:
-
         x = random.randrange(game.stage_width)
         y = random.randrange(game.stage_height)
-        game.add_actor(Star("../images/star-24.png", x, y))
-        num_stars += 1
+        if not isinstance(game.get_actor(x, y), Wall):
+            game.add_actor(Star("../images/star-24.png", x, y))
+            num_stars += 1
 
     game.on_execute()
