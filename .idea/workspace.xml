@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="17b60764-2cf8-4817-9b28-8b2dde6c1d2b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/labs/lab 03/myqueue.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/lab 03/stack.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/lab 03/timequeue.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lectures/lecture 4/recursion examples.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,29 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/labs/lab 03/stack.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="176" column="37" lean-forward="true" selection-start-line="176" selection-start-column="4" selection-end-line="176" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/labs/lab 03/myqueue.py">
+        <entry file="file://$PROJECT_DIR$/lectures/lecture 4/recursion examples.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="128" column="5" selection-start-line="128" selection-start-column="5" selection-end-line="128" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/labs/lab 03/timequeue.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="893">
-              <caret line="68" column="25" selection-start-line="68" selection-start-column="25" selection-end-line="68" selection-end-column="25" />
+            <state relative-caret-position="398">
+              <caret line="79" column="23" selection-start-line="79" selection-start-column="23" selection-end-line="79" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -74,10 +54,12 @@
         <option value="$PROJECT_DIR$/labs/lab 03/stack.py" />
         <option value="$PROJECT_DIR$/labs/lab 03/timequeue.py" />
         <option value="$PROJECT_DIR$/labs/lab 03/myqueue.py" />
+        <option value="$PROJECT_DIR$/assignments/A0/a0/code/game.py" />
+        <option value="$PROJECT_DIR$/lectures/lecture 4/recursion examples.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-24" />
     <option name="y" value="-21" />
     <option name="width" value="1851" />
@@ -99,13 +81,33 @@
             <path>
               <item name="CSC148-2" type="b2602c69:ProjectViewProjectNode" />
               <item name="CSC148-2" type="462c0819:PsiDirectoryNode" />
-              <item name="labs" type="462c0819:PsiDirectoryNode" />
+              <item name="assignments" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="CSC148-2" type="b2602c69:ProjectViewProjectNode" />
               <item name="CSC148-2" type="462c0819:PsiDirectoryNode" />
-              <item name="labs" type="462c0819:PsiDirectoryNode" />
-              <item name="lab 03" type="462c0819:PsiDirectoryNode" />
+              <item name="assignments" type="462c0819:PsiDirectoryNode" />
+              <item name="A0" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CSC148-2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSC148-2" type="462c0819:PsiDirectoryNode" />
+              <item name="assignments" type="462c0819:PsiDirectoryNode" />
+              <item name="A0" type="462c0819:PsiDirectoryNode" />
+              <item name="a0" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CSC148-2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSC148-2" type="462c0819:PsiDirectoryNode" />
+              <item name="assignments" type="462c0819:PsiDirectoryNode" />
+              <item name="A0" type="462c0819:PsiDirectoryNode" />
+              <item name="a0" type="462c0819:PsiDirectoryNode" />
+              <item name="code" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CSC148-2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSC148-2" type="462c0819:PsiDirectoryNode" />
+              <item name="lectures" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -257,9 +259,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Doctest_product - 2019.05.31 at 13h 20m 17s.xml">
-      <configuration name="Doctest product" configurationId="tests" />
-    </history-entry>
     <history-entry file="Doctest_product_star - 2019.05.31 at 13h 29m 45s.xml">
       <configuration name="Doctest product_star" configurationId="tests" />
     </history-entry>
@@ -287,17 +286,20 @@
     <history-entry file="Doctest_list_queue - 2019.05.31 at 13h 42m 18s.xml">
       <configuration name="Doctest list_queue" configurationId="tests" />
     </history-entry>
+    <history-entry file="Doctest_list_queue - 2019.05.31 at 13h 45m 32s.xml">
+      <configuration name="Doctest list_queue" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.24960254" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24960254" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3285968" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3285968" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -362,12 +364,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assignments/A0/a0/code/game.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignments/A0/a0/code/actors.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/assignments/A0/a0/task0_responses.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -383,15 +379,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/labs/lab 03/stack.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="176" column="37" lean-forward="true" selection-start-line="176" selection-start-column="4" selection-end-line="176" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/labs/lab 03/timequeue.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="893">
-          <caret line="68" column="25" selection-start-line="68" selection-start-column="25" selection-end-line="68" selection-end-column="25" />
+        <state relative-caret-position="3344">
+          <caret line="176" column="37" selection-start-line="176" selection-start-column="4" selection-end-line="176" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -399,6 +388,32 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="128" column="5" selection-start-line="128" selection-start-column="5" selection-end-line="128" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/labs/lab 03/timequeue.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="68" column="25" selection-start-line="68" selection-start-column="25" selection-end-line="68" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignments/A0/a0/code/actors.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1539" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignments/A0/a0/code/game.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lectures/lecture 4/recursion examples.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="79" column="23" selection-start-line="79" selection-start-column="23" selection-end-line="79" selection-end-column="23" />
         </state>
       </provider>
     </entry>
