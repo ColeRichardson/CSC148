@@ -71,7 +71,10 @@ class Game:
         """
 
         # TODO: (Task 2) Complete the body of this method
-        pass
+        for actor in self._actors:
+            if actor.x == x and actor.y == y:
+                return actor
+        return None
 
     def on_init(self) -> None:
         """
