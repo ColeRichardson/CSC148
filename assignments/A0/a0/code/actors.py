@@ -60,10 +60,18 @@ class Player(Actor):
         """
 
         new_x, new_y = self.x, self.y
-        if game.keys_pressed[pygame.K_LEFT]:
+        if game.keys_pressed[pygame.K_LEFT] or game.keys_pressed[pygame.K_a]:
             new_x -= 1
 
         # TODO: Add code here to complete relevant tasks from assignment handout
+        elif game.keys_pressed[pygame.K_RIGHT] or game.keys_pressed[pygame.K_d]:
+            new_x += 1
+
+        elif game.keys_pressed[pygame.K_UP] or game.keys_pressed[pygame.K_w]:
+            new_y -= 1
+
+        elif game.keys_pressed[pygame.K_DOWN] or game.keys_pressed[pygame.K_s]:
+            new_y += 1
 
         self.x, self.y = new_x, new_y
 
@@ -80,7 +88,7 @@ class Chaser(Actor):
     x: int
     y: int
     icon: pygame.Surface
-    
+
     def move(self, game: 'Game') -> None:
         """
         Move the chaster on the <game>'s stage based on the player's location.
@@ -105,7 +113,7 @@ class Star(Actor):
     x: int
     y: int
     icon: pygame.Surface
-    
+
     def move(self, game: 'Game') -> None:
         """
         A Star cannot move, so do nothing.
@@ -121,7 +129,7 @@ class Wall(Actor):
     x: int
     y: int
     icon: pygame.Surface
-    
+
     def move(self, game: 'Game') -> None:
         """
         A Wall cannot move, so do nothing.
