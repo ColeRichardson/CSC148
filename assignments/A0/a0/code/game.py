@@ -7,24 +7,29 @@ class Game:
     """
     This class represents the main game.
     === Attributes ===
-    screen:
-    stage_width:
+    screen: the window where the game is being played.
+    stage_width: the width of the stage, the number of columns in the maze0.txt file.
+    stage_height: the height of the stage, the number of rows in the maze0.txt file - 1 so we start at 0.
     size: the size of the pygame screen, where the game occurs. length and height of grid multplied by ICON_SIZE
-    player:
-    goal_stars:
-    keys_pressed:
+    player: player object, holds information about the player.
+    goal_stars: the number of stars the player must collect to win
+    keys_pressed: holds the most recent keystroke
 
     == Private Attributes ==
-    _running:
-    _actors: holds the actors that are in the game, such as walls, stars, players, and chasers
+    _running: holds the status of whether the game is running or not, True = running, False = stopped.
+    _actors: holds the actors that are in the game, such as walls, stars, players, and chasers.
     """
+    screen: pygame.display
+    stage_width: int
+    stage_height: int
+    size: int
+    player: player
+    goal_stars: int
+    keys_pressed: pygame.key
 
-    _running: Bool
-    _actors: List
+    _running: bool
+    _actors: list
 
-    # TODO: (Task 0) Complete the class documentation for this class by adding
-    # attribute descriptions and types (make sure to separate public and
-    # private attributes appropriately)
 
     def __init__(self, w, h) -> None:
         """
@@ -70,7 +75,6 @@ class Game:
         <x> and <y>. If no actor exists in that location, return None.
         """
 
-        # TODO: (Task 2) Complete the body of this method
         for actor in self._actors:
             if actor.x == x and actor.y == y:
                 return actor
@@ -104,7 +108,6 @@ class Game:
         self.keys_pressed = pygame.key.get_pressed()
         for actor in self._actors:
             actor.move(self)
-        #potential example
 
     def on_render(self) -> None:
         """
@@ -142,7 +145,6 @@ class Game:
 
         while self._running:
             pygame.time.wait(100)
-            #another possible examples of polymorphism
             for event in pygame.event.get():
                 self.on_event(event)
             self.on_loop()

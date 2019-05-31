@@ -64,7 +64,6 @@ class Player(Actor):
             new_x -= 1
             if isinstance(game.get_actor(new_x, new_y), Wall):
                 new_x = self.x
-        # TODO: Task 1
         # TODO: Add code here to complete relevant tasks from assignment handout
         elif game.keys_pressed[pygame.K_RIGHT] or game.keys_pressed[pygame.K_d]:
             new_x += 1

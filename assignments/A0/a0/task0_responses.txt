@@ -1,7 +1,7 @@
 Q1. What classes in the given code are using inheritance? State clearly which is the parent class and which are the subclasses.
 YOUR ANSWER:
 
-SublClass: Parent Class
+SubClass: Parent Class
 Player: Actor
 Chaser: Actor
 Star: Actor
@@ -12,7 +12,8 @@ Wall: Actor
 
 Q2. Where in the code do you see an example of polymorphism? State the class and method name where this occurs.
 YOUR ANSWER:
-the class is actor and the method is called move
+an example of polymorphism occurs on the class actor and the method move, occurs in the game class in the method on_loop.
+when we call move on a player object the method used overrides the parent class method move and uses the player move method instead.
 
 
 
@@ -23,7 +24,6 @@ Q3. What classes in the given code are using composition?
 
 YOUR ANSWER:
 Game
-possibly actors
 
 
 
