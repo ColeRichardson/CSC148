@@ -1,0 +1,28 @@
+
+Q1. What classes in the given code are using inheritance? State clearly which is the parent class and which are the subclasses.
+
+YOUR ANSWER:
+
+
+
+
+
+
+Q2. Where in the code do you see an example of polymorphism? State the class and method name where this occurs.
+
+YOUR ANSWER:
+
+
+
+
+
+
+Q3. What classes in the given code are using composition?
+
+YOUR ANSWER:
+
+
+
+
+
+
