@@ -6,7 +6,22 @@ import pygame
 class Game:
     """
     This class represents the main game.
+    === Attributes ===
+    screen:
+    stage_width:
+    size: the size of the pygame screen, where the game occurs. length and height of grid multplied by ICON_SIZE
+    player:
+    goal_stars:
+    keys_pressed:
+
+    == Private Attributes ==
+    _running:
+    _actors: holds the actors that are in the game, such as walls, stars, players, and chasers
     """
+
+    _running: Bool
+    _actors: List
+
     # TODO: (Task 0) Complete the class documentation for this class by adding
     # attribute descriptions and types (make sure to separate public and
     # private attributes appropriately)
@@ -86,6 +101,7 @@ class Game:
         self.keys_pressed = pygame.key.get_pressed()
         for actor in self._actors:
             actor.move(self)
+        #potential example
 
     def on_render(self) -> None:
         """
@@ -123,6 +139,7 @@ class Game:
 
         while self._running:
             pygame.time.wait(100)
+            #another possible examples of polymorphism
             for event in pygame.event.get():
                 self.on_event(event)
             self.on_loop()

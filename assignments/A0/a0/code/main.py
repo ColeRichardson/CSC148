@@ -27,6 +27,14 @@ if __name__ == "__main__":
     player, chaser = None, None
 
     # TODO: (Task 0) ADD YOUR COMMENT HERE
+    #the first loop goes through each element in the data list, which is a line in the file
+    #the second for loop goes through each character in the line of the file that is currently being looped over
+    #and if the character is a P, a player object is created at that location in the maze,
+    #if the character is a C a chaser object is created at that location in the maze,
+    #if the character is an X a wall object is created at that location in the maze.
+    '''
+    
+    '''
     for i in range(len(data)):
         for j in range(len(data[i])):
             key = data[i][j]
@@ -44,6 +52,10 @@ if __name__ == "__main__":
     game.goal_stars = 5
 
     # TODO: (Task 0) ADD YOUR COMMENT HERE
+    #this while loop iterates 8 times,
+    #each time it randomly generates x and y co-ordinates that are within
+    #the game window, then creates a star object with those co-ordinates
+    #generates 8 stars for the player to collect at random co-ordinates
     # TODO: (Task 3) ADD CODE TO COMPLETE TASK 3 BELOW
     num_stars = 0
     while num_stars < 8:
