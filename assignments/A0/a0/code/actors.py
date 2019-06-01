@@ -98,7 +98,9 @@ class Player(Actor):
         """Return True iff the game has been won."""
 
         # TODO: (Task 5) Complete the body of this method
-        pass
+        if self._stars_collected == game.goal_stars:
+            return True
+        return False
 
 class Chaser(Actor):
     """

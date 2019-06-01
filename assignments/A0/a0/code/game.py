@@ -108,6 +108,9 @@ class Game:
         self.keys_pressed = pygame.key.get_pressed()
         for actor in self._actors:
             actor.move(self)
+        if self.player.has_won(self) == True:
+            print("Congratulations, you won!")
+            self._running = False
 
     def on_render(self) -> None:
         """
