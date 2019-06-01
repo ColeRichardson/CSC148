@@ -7,17 +7,13 @@ Chaser: Actor
 Star: Actor
 Wall: Actor
 
-
+as denoted above, the player, chaser, star, and wall classes are all subclasses of the parent class actor.
 
 
 Q2. Where in the code do you see an example of polymorphism? State the class and method name where this occurs.
 YOUR ANSWER:
 an example of polymorphism occurs on the class actor and the method move, occurs in the game class in the method on_loop.
-when we call move on a player object the method used overrides the parent class method move and uses the player move method instead.
-
-
-
-
+when we call move on an actor object the method used depends on the type of the object the method is being called on.
 
 
 Q3. What classes in the given code are using composition?

@@ -59,7 +59,7 @@ if __name__ == "__main__":
     while num_stars < 8:
         x = random.randrange(game.stage_width)
         y = random.randrange(game.stage_height)
-        if not isinstance(game.get_actor(x, y), (Wall, Player, Chaser)):
+        if not isinstance(game.get_actor(x, y), (Wall, Player, Chaser, Star)):
             game.add_actor(Star("../images/star-24.png", x, y))
             num_stars += 1
 

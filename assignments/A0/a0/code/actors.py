@@ -60,6 +60,7 @@ class Player(Actor):
         """
 
         new_x, new_y = self.x, self.y
+
         if game.keys_pressed[pygame.K_LEFT] or game.keys_pressed[pygame.K_a]:
             new_x -= 1
             if isinstance(game.get_actor(new_x, new_y), Wall):
@@ -67,7 +68,7 @@ class Player(Actor):
             if isinstance(game.get_actor(new_x, new_y), Star):
                 self._stars_collected += 1
                 game.remove_actor(game.get_actor(new_x, new_y))
-        # TODO: Add code here to complete relevant tasks from assignment handout
+
         elif game.keys_pressed[pygame.K_RIGHT] or game.keys_pressed[pygame.K_d]:
             new_x += 1
             if isinstance(game.get_actor(new_x, new_y), Wall):
@@ -97,7 +98,6 @@ class Player(Actor):
     def has_won(self, game: 'Game') -> bool:
         """Return True iff the game has been won."""
 
-        # TODO: (Task 5) Complete the body of this method
         if self._stars_collected == game.goal_stars:
             return True
         return False
@@ -124,8 +124,8 @@ class Chaser(Actor):
         elif game.player.y < self.y:
             self.y -= 0.5
 
-        # TODO: Add code here to complete relevant tasks from assignment handout
-
+        if game.player.x == self.x and game.player.y == self.y:
+            game.game_over()
 
 class Star(Actor):
     """

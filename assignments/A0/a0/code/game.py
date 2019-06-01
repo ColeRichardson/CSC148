@@ -103,14 +103,17 @@ class Game:
         Move all actors in the game as appropriate.
         Check for win/lose conditions and stop the game if necessary.
         """
-        # TODO: (Task 5, 6) Add code to check for win/lose conditions.
 
         self.keys_pressed = pygame.key.get_pressed()
         for actor in self._actors:
             actor.move(self)
-        if self.player.has_won(self) == True:
+        if self.player == None:
+            print("You lose! :( Better luck next time.")
+            self._running = False
+        elif self.player.has_won(self) == True:
             print("Congratulations, you won!")
             self._running = False
+
 
     def on_render(self) -> None:
         """
