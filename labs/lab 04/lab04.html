@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="stylesheet" href="../styles.css" type="text/css" />
+ 	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+ 	<script type="text/javascript" src="../js/jquery.min.js"></script>
+ 	<script type="text/javascript" src="../js/jquery.smint.js"></script>
+ 	<script type="text/javascript" src="../js/scroll.js"></script>
+
+<style>
+body {
+	padding: 30px 50px;
+	font-family: "Source Sans Pro";
+}
+
+li {
+	margin: 10px auto;
+}
+
+hr { 
+  border: 0; 
+  height: 1px; 
+  margin-top: 25px;
+  background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); 
+}
+
+.title {
+	font-size: 2.1em;
+	font-weight: bold;
+	color: #B35F82;
+}
+
+img {
+	margin: 5px;
+	border: solid 5px #666;
+}
+</style>
+
+
+    <title>CSC148H Summer 2019: Lab 4</title>
+  </head>
+  
+  <body>
+	<h1 class="title">CSC148 Summer 2019: Lab 4</h1>
+
+<p>This lab is meant to give you some time to review all the topics we have covered so far. 
+This way, we can take some time today to catch up if we're falling behind, 
+or practice previous concepts to solidify our understanding. 
+</p>
+<p>Feel free to focus on whichever concepts you feel you could use the most review on.</p>
+<p>
+You can also use the lab to work on your assignment or ask your TA questions about the assignment if you wish to do so.
+</p>
+
+<h2>Object-oriented programming</h2>
+
+<ol>
+<li>
+Work through the practice questions on this <a href="OOP_practice.pdf">OOP Handout</a>. Download the appropriate starter code which the handout refers to from today's lab module on Quercus.
+<p>
+
+</ol>
+
+<h2>Exceptions</h2>
+
+<ol>
+<li>Work through the <a href="https://mcs.utm.utoronto.ca/~148/lectures/02/handout.pdf">Exceptions handout</a> if either you or your partner have not already done so.</li>
+<p>
+<li>
+Each of you, on your own, come up with your <b>own question</b> about exceptions that could be used as a possible question on a test. You can make it similar in structure to either of the questions on the above handout. Write down your question on a piece of paper. Write down the solution on the back of the paper. If the TA is available, show your TA your question for approval before moving on to the next step.
+</li>
+<p>
+<li>Once both of you have a question ready, exchange questions, and try answering each others' questions. Discuss and grade each others' responses. Consult the TA if you have any debates about correctness of answers.
+</li>
+</ol>
+
+
+<h2>OOP and Exceptions Test Practice</h2>
+
+After you have done the above questions, <b>close IDLE, get out a piece of paper and a pen</b> and try writing out the 
+solution
+for this question from a past 148 test:
+<p>
+<blockquote>
+Write a series of classes, complete with documentation that satisfy the following specification.
+
+<ul>
+<li>
+A To Do List has a name (an arbitrary string), and a list of tasks, provided when the list is created.
+</li>
+<li>
+New tasks can be added to the To Do List, but the total number of tasks in the list must be 50 or less. Attempting to add more than 50 tasks to a list should raise the TaskOverloadError
+</li>
+
+<li>
+Each task has a date, month and year, provided when the task is created. The date must be an integer between 1 and 31, the month must be an integer between 1 and 12, and the year must be 2016 or greater. An invalid date, month or year should raise the InvalidDateError
+</li>
+<li>
+A task also has details about the task in the format of a string (e.g. "date with Jane"), provided when the task is created.
+</li>
+</ul>
+<p></p>
+Write code to perform the following:
+<ul>
+<li>Create a To Do List named "School" with an empty list of tasks</li>
+<li>Prompt the user for a date</li>
+<li>Prompt the user for a month</li>
+<li>Create a task for "Ace CSC108 test" using the given date, month and 2018 as the year, and add the task to the to do list that was created</li>
+<p>
+<li>If this raises an InvalidDateError, print "invalid date"</li>
+<li>If this raises a TaskOverloadError, print "too many tasks"</li>
+</ul>
+</blockquote>
+
+<h2>Stacks/Queues</h2>
+
+<ol>
+<li>Work through the <a href="https://mcs.utm.utoronto.ca/~148/lectures/03/handout.pdf">Stacks and Queues handout</a> if either you or your partner have not already done so.</li>
+<p>
+<li>Complete the <a href="https://mcs.utm.utoronto.ca/~148/lectures/03/stacks_practice.py">Stacks practice problem</a>.</li>
+<p>
+<li>Work through this handout with a <a href="queue_practice.pdf">Queues practice problem</a> </li>
+</ol>
+
+</html>
+
+
