@@ -1,0 +1,2 @@
+see the notes made in onenote on lecture 5
+mainly did recursion practice

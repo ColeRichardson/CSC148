@@ -64,6 +64,7 @@ class Game:
         self.screen = None
         self.player = None
         self.keys_pressed = None
+        self.door = None #assign door to a variable so we can access it later
 
         # Attributes that get set during level setup
         self._actors = None
@@ -92,6 +93,13 @@ class Game:
 
         self.player = player
 
+    #sets the door for the level for easy access
+    def set_door(self, door: Door) -> None:
+        """
+        set the game's door to be the given <door> object.
+        """
+        self.door = door
+
     def add_actor(self, actor: Actor) -> None:
         """
         Add the given <actor> to the game's list of actors.
@@ -116,6 +124,15 @@ class Game:
             if actor.x == x and actor.y == y:
                 return actor
         return None
+
+    def enough_stars(self) -> bool:
+        """
+        returns true iff the player has collected stars equal to
+        or greater than goal_stars
+        """
+        if self.player.get_star_count() >= self.goal_stars:
+            return True
+        return False
 
     def on_init(self) -> None:
         """
@@ -143,7 +160,11 @@ class Game:
         """
 
         # TODO: (Task 0) Move over your code from A0 here; adjust as needed
-        return self.player.get_star_count() == self.goal_stars
+        if self.get_level() == 0:
+            if self.enough_stars():
+                if self.player.x == self.door.x and self.player.y == self.door.y:
+                    return True
+            return False
 
     def on_loop(self) -> None:
         """
@@ -239,7 +260,7 @@ class Game:
         self.stage_width, self.stage_height = w, h-1
         self.size = (w * ICON_SIZE, h * ICON_SIZE)
 
-        player, chaser = None, None
+        player, chaser, door = None, None, None
 
         for i in range(len(data)):
             for j in range(len(data[i])):
@@ -250,9 +271,13 @@ class Game:
                     chaser = GhostMonster("../images/ghost-24.png", j, i)
                 elif key == 'X':
                     self.add_actor(Wall("../images/wall-24.png", j, i))
+                elif key == 'D':
+                    door = Door("../images/door-24.png", j, i)
 
         self.set_player(player)
         self.add_actor(player)
+        self.set_door(door) #set the door
+        self.add_actor(door) # add the door to the _actors list
         player.set_smooth_move(True) # Enable smooth movement for player
         self.add_actor(chaser)
         # Set the number of stars the player must collect to win
@@ -267,7 +292,7 @@ class Game:
             y = random.randrange(self.stage_height)
             # TODO: (Task 0) Move over your code from A0 here; adjust as needed
             # Make sure the stars never appear on top of another actor
-            if not isinstance(self.get_actor(x, y),(Wall, Player, GhostMonster, Star)):
+            if not isinstance(self.get_actor(x, y),(Wall, Player, GhostMonster, Star, Door)):
                 self.add_actor(Star("../images/star-24.png", x, y))
                 num_stars += 1
 

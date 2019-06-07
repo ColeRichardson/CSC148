@@ -129,6 +129,15 @@ class Player(Actor):
             elif isinstance(game.get_actor(new_x, new_y), Star):
                 self._stars_collected += 1
                 game.remove_actor(game.get_actor(new_x, new_y))
+            elif isinstance(game.get_actor(new_x, new_y), Door):
+                if game.enough_stars():
+                    self.x = new_x
+                    self.y = new_y
+
+                elif not game.enough_stars():
+                    new_x, new_y = self.x, self.y
+                    print("Door won't open unless you collect enough stars")
+
             self.x = new_x
             self.y = new_y
 
@@ -165,6 +174,19 @@ class Wall(Actor):
 
         pass
 
+class Door(Actor):
+    """
+    A class to represent a Door in the game
+    """
+    x: int
+    y: int
+    icon: pygame.Surface
+
+    def move(self, game: 'Game') -> None:
+        """
+        A Door cannot move, so do nothing
+        """
+        pass
 
 # === Classes for movable objects === #
 
