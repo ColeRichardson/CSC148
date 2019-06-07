@@ -166,6 +166,9 @@ class Game:
                     return True
             return False
 
+        elif self.get_level() == 1:
+            return False
+
     def on_loop(self) -> None:
         """
         Move all actors in the game as appropriate.
@@ -179,9 +182,14 @@ class Game:
         if self.player == None:
             print("You lose! :( Better luck next time.")
             self._running = False
+
         elif self.game_won() == True:
-            print("Congratulations, you won!")
-            self._running = False
+            if self._level == self._max_level:
+                print("Congratulations, you won!")
+                self._running = False
+            else:
+                self._level += 1
+                self.setup_current_level()
 
         # TODO: (Task 0) Move over your code from A0 here; adjust as needed
 
