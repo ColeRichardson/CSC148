@@ -129,6 +129,9 @@ class Player(Actor):
             elif isinstance(game.get_actor(new_x, new_y), Star):
                 self._stars_collected += 1
                 game.remove_actor(game.get_actor(new_x, new_y))
+            #check if the player is trying to move into a box
+            elif isinstance(game.get_actor(new_x, new_y), Box):
+                Box.be_pushed()
             elif isinstance(game.get_actor(new_x, new_y), Door):
                 if game.enough_stars():
                     self.x = new_x
@@ -199,6 +202,14 @@ class Box(Actor):
         """
         A box cannot move on its own, so do nothing
         """
+        pass
+
+    def be_pushed(self, game: 'Game', dx: int, dy: int) -> bool:
+        """Move the box in the direction that it is being pushed,
+        represented by <dx> and <dy> if the way is not blocked by a wall.
+        If there is another box in the way, move both boxes at once.
+        If there is a monster in the way, squish the monster.
+        Return True if a move was possible, and False otherwise."""
         pass
 
 # === Classes for monsters === #
