@@ -289,7 +289,7 @@ class Game:
         player.set_smooth_move(True) # Enable smooth movement for player
         self.add_actor(chaser)
         # Set the number of stars the player must collect to win
-        self.goal_stars = 5
+        self.goal_stars = 1
         self.goal_message = "Objective: Collect {}".format(self.goal_stars) + \
                            " stars before the ghost gets you and head for the door"
 
@@ -318,8 +318,35 @@ class Game:
         self.size = (w * ICON_SIZE, h * ICON_SIZE)
         self.goal_message = "Objective: Squish all the monsters with the boxes " \
                            + " and head for the door"
+        player, door = None, None
 
+        for i in range(len(data)):
+            for j in range(len(data[i])):
+                key = data[i][j]
+                if key == 'P':
+                    player = Player("../images/boy-24.png", j, i)
+                elif key == 'M':
+                    self.add_actor(SquishyMonster("../images/monster-24.png", j, i))
+                    self.monster_count += 1
+                elif key == 'X':
+                    self.add_actor(Wall("../images/wall-24.png", j, i))
+                elif key == 'D':
+                    door = Door("../images/door-24.png", j, i)
+
+        self.set_player(player)
+        self.add_actor(player)
+        self.set_door(door)  # set the door
+        self.add_actor(door)  # add the door to the _actors list
 
         # TODO: Complete this function to set up the squishy monster level
+        #draw boxes
+        num_boxes = 0
+        while num_boxes < 12:
+            x = random.randrange(self.stage_width)
+            y = random.randrange(self.stage_height)
+            if not isinstance(self.get_actor(x, y), (Wall, Player, SquishyMonster, Box, Door)):
+                self.add_actor(Box("../images/box-24.png", x, y))
+                num_boxes += 1
+
 
 

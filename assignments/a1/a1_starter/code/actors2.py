@@ -191,6 +191,15 @@ class Door(Actor):
 # === Classes for movable objects === #
 
 # TODO: Your class for Box should go here
+class Box(Actor):
+    """
+    A class to represent a box in the game
+    """
+    def move(self, game: 'Game') -> None:
+        """
+        A box cannot move on its own, so do nothing
+        """
+        pass
 
 # === Classes for monsters === #
 
