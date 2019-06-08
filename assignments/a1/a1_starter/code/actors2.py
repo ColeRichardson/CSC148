@@ -317,9 +317,13 @@ class SquishyMonster(Monster):
         # TODO: Add code to make the monster bounce off of any non-player actors
 
         if self._delay_count == 0: # delay the monster's movement
-
+            #if not isinstance(game.get_actor(self.x, self.y),Wall):
             self.x += self._dx
             self.y += self._dy
+
+            if isinstance(game.get_actor(self.x + self._dx, self.y + self._dy), Wall):
+                self._dx = -1 * self._dx
+                self._dy = -1 * self._dy
 
         self._delay_count = (self._delay_count + 1) % self._delay
 

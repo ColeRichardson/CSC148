@@ -59,7 +59,8 @@ class Game:
         """
 
         self._running = False
-        self._level = 0 # Current level that the game is in
+        #changed this to 1 to test the squishy monster bouncing
+        self._level = 1 # Current level that the game is in
         self._max_level = len(LEVEL_MAPS)-1
         self.screen = None
         self.player = None
