@@ -131,7 +131,15 @@ class Player(Actor):
                 game.remove_actor(game.get_actor(new_x, new_y))
             #check if the player is trying to move into a box
             elif isinstance(game.get_actor(new_x, new_y), Box):
-                Box.be_pushed()
+                #print("there is a box")
+                box = game.get_actor(new_x, new_y)
+                print(box)
+                if box.be_pushed(game, dx, dy):
+                    self.x = new_x
+                    self.y = new_y
+                else:
+                    new_x = self.x
+                    new_y = self.y
             elif isinstance(game.get_actor(new_x, new_y), Door):
                 if game.enough_stars():
                     self.x = new_x
@@ -210,9 +218,27 @@ class Box(Actor):
         If there is another box in the way, move both boxes at once.
         If there is a monster in the way, squish the monster.
         Return True if a move was possible, and False otherwise."""
-        pass
+        if isinstance(game.get_actor(self.x + dx, self.y + dy), Wall):
+            return False
+        elif not isinstance(game.get_actor(self.x + dx, self.y + dy), (Wall, Box, SquishyMonster)):
+            self.x += dx
+            self.y += dy
+            return True
+        elif isinstance(game.get_actor(self.x + dx, self.y + dy), SquishyMonster):
+            game.get_actor(self.x + dx, self.y + dy).die(game)
+            self.x += dx
+            self.y += dy
+            return True
+        else:
+            if game.get_actor(self.x + dx, self.y + dy).be_pushed(game, dx, dy):
+                self.x += dx
+                self.y += dy
+                return True
+            else:
+                return False
 
 # === Classes for monsters === #
+
 
 class Monster(Actor):
     """
@@ -257,7 +283,10 @@ class Monster(Actor):
 
         # TODO: (Task 0) Complete this method; should be similar to what was
         # done at the end of Chaser.move for A0
-        if game.player.x == self.x and game.player.y == self.y:
+        # added check to make sure we dont get attribute error for player
+        if not game.player:
+            game.game_over()
+        elif game.player.x == self.x and game.player.y == self.y:
             game.game_over()
 
 
@@ -329,12 +358,14 @@ class SquishyMonster(Monster):
 
         if self._delay_count == 0: # delay the monster's movement
             #if not isinstance(game.get_actor(self.x, self.y),Wall):
-            self.x += self._dx
-            self.y += self._dy
 
-            if isinstance(game.get_actor(self.x + self._dx, self.y + self._dy), Wall):
+            if isinstance(game.get_actor(self.x + self._dx, self.y + self._dy), (Wall, Box)):
                 self._dx = -1 * self._dx
                 self._dy = -1 * self._dy
+
+            else:
+                self.x += self._dx
+                self.y += self._dy
 
         self._delay_count = (self._delay_count + 1) % self._delay
 
@@ -344,5 +375,6 @@ class SquishyMonster(Monster):
         """Remove this monster from the <game>."""
 
         # TODO: Complete this method
-        pass
+        game.remove_actor(self)
+        game.monster_count -= 1
 
