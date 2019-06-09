@@ -60,7 +60,7 @@ class Game:
 
         self._running = False
         #changed this to 1 to test the squishy monster bouncing
-        self._level = 1 # Current level that the game is in
+        self._level = 0 # Current level that the game is in
         self._max_level = len(LEVEL_MAPS)-1
         self.screen = None
         self.player = None
@@ -126,14 +126,22 @@ class Game:
                 return actor
         return None
 
-    def enough_stars(self) -> bool:
+    def door_open(self) -> bool:
         """
-        returns true iff the player has collected stars equal to
+        returns true iff the condition for the current level has been met,
+        else returns false.
+        level 0: the player has collected stars equal to
         or greater than goal_stars
+        level 1: the player has killed all the monsters in the level
         """
-        if self.player.get_star_count() >= self.goal_stars:
-            return True
-        return False
+        if self.get_level() == 0:
+            if self.player.get_star_count() >= self.goal_stars:
+                return True
+            return False
+        if self.get_level() == 1:
+            if self.monster_count == 0:
+                return True
+            return False
 
     def on_init(self) -> None:
         """
@@ -161,14 +169,10 @@ class Game:
         """
 
         # TODO: (Task 0) Move over your code from A0 here; adjust as needed
-        if self.get_level() == 0:
-            if self.enough_stars():
-                if self.player.x == self.door.x and self.player.y == self.door.y:
-                    return True
-            return False
-
-        elif self.get_level() == 1:
-            return False
+        if self.player.x == self.door.x and self.player.y == self.door.y:
+            if self.door_open():
+                return True
+        return False
 
     def on_loop(self) -> None:
         """
@@ -180,11 +184,11 @@ class Game:
         for actor in self._actors:
             actor.move(self)
 
-        if self.player == None:
+        if not self.player:
             print("You lose! :( Better luck next time.")
             self._running = False
 
-        elif self.game_won() == True:
+        elif self.game_won():
             if self._level == self._max_level:
                 print("Congratulations, you won!")
                 self._running = False
@@ -290,7 +294,7 @@ class Game:
         player.set_smooth_move(True) # Enable smooth movement for player
         self.add_actor(chaser)
         # Set the number of stars the player must collect to win
-        self.goal_stars = 1
+        self.goal_stars = 5
         self.goal_message = "Objective: Collect {}".format(self.goal_stars) + \
                            " stars before the ghost gets you and head for the door"
 

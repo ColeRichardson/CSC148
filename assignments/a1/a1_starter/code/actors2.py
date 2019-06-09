@@ -123,31 +123,33 @@ class Player(Actor):
             # i.e. Check if move is possible / if star is to be collected, etc.
 
             if isinstance(game.get_actor(new_x, new_y), Wall):
-                #new_x, new_y = self.x - dx, self.y - dy
                 new_x = self.x
                 new_y = self.y
+
             elif isinstance(game.get_actor(new_x, new_y), Star):
                 self._stars_collected += 1
                 game.remove_actor(game.get_actor(new_x, new_y))
+
             #check if the player is trying to move into a box
             elif isinstance(game.get_actor(new_x, new_y), Box):
-                #print("there is a box")
-                box = game.get_actor(new_x, new_y)
-                print(box)
-                if box.be_pushed(game, dx, dy):
+                if game.get_actor(new_x, new_y).be_pushed(game, dx, dy):
                     self.x = new_x
                     self.y = new_y
                 else:
                     new_x = self.x
                     new_y = self.y
+            #check if the player is trying to open the door
             elif isinstance(game.get_actor(new_x, new_y), Door):
-                if game.enough_stars():
+                if game.door_open():
                     self.x = new_x
                     self.y = new_y
 
-                elif not game.enough_stars():
+                elif not game.door_open():
+                    if game.get_level() == 0:
+                        print("Door won't open unless you collect enough stars")
+                    if game.get_level() == 1:
+                        print("Door won't open unless all the monsters are dead")
                     new_x, new_y = self.x, self.y
-                    print("Door won't open unless you collect enough stars")
 
             self.x = new_x
             self.y = new_y
