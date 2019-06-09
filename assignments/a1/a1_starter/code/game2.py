@@ -170,6 +170,7 @@ class Game:
 
         # TODO: (Task 0) Move over your code from A0 here; adjust as needed
         if self.player.x == self.door.x and self.player.y == self.door.y:
+            # checks if win condition has been met for current level
             if self.door_open():
                 return True
         return False

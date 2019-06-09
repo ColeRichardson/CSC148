@@ -220,9 +220,11 @@ class Box(Actor):
         If there is another box in the way, move both boxes at once.
         If there is a monster in the way, squish the monster.
         Return True if a move was possible, and False otherwise."""
-        if isinstance(game.get_actor(self.x + dx, self.y + dy), Wall):
+
+        if isinstance(game.get_actor(self.x + dx, self.y + dy), (Wall, Door)):
             return False
-        elif not isinstance(game.get_actor(self.x + dx, self.y + dy), (Wall, Box, SquishyMonster)):
+        elif not isinstance(game.get_actor(self.x + dx, self.y + dy),
+                            (Wall, Box, SquishyMonster)):
             self.x += dx
             self.y += dy
             return True
@@ -236,8 +238,6 @@ class Box(Actor):
                 self.x += dx
                 self.y += dy
                 return True
-            else:
-                return False
 
 # === Classes for monsters === #
 
