@@ -2,6 +2,8 @@ from __future__ import annotations
 import pygame
 from typing import Optional
 from settings import *
+import random
+
 
 class Actor:
     """
@@ -39,6 +41,9 @@ class Actor:
 class Player(Actor):
     """
     A class to represent a Player in the game.
+    === Attributes ===
+    Shields: the number of shields the player has
+    has_key: True if the player has collected the key, False otherwise.
     """
     # === Private Attributes ===
     # _stars_collected:
@@ -51,18 +56,22 @@ class Player(Actor):
     x: int
     y: int
     icon: pygame.Surface
+    shields: int
+    has_key: bool
     _stars_collected: int
     _last_event: Optional[int]
     _smooth_move: bool
 
     def __init__(self, icon_file: str, x: int, y: int) -> None:
-        """Initalize a Player with the given image <icon_file> at the position
+        """Initialize a Player with the given image <icon_file> at the position
         <x> and <y> on the stage."""
 
         super().__init__(icon_file, x, y)
         self._stars_collected = 0
         self._last_event = None # This is used for precise movement
         self._smooth_move = False # Turn this on for smooth movement
+        self.shields = 0
+        self.has_key = False # the player does not start with the key
 
     def set_smooth_move(self, status: bool) -> None:
         """
@@ -95,18 +104,19 @@ class Player(Actor):
         if self._last_event:
             dx, dy = 0, 0
 
-            if self._smooth_move: # Smooth movement used by the ghost level
+            # Smooth movement used by the ghost level
+            if self._smooth_move:
                 if game.keys_pressed[pygame.K_LEFT] or game.keys_pressed[pygame.K_a]:
                     dx -= 1
-                elif game.keys_pressed[pygame.K_RIGHT] or game.keys_pressed[pygame.K_d]:
+                if game.keys_pressed[pygame.K_RIGHT] or game.keys_pressed[pygame.K_d]:
                     dx += 1
-                elif game.keys_pressed[pygame.K_UP] or game.keys_pressed[pygame.K_w]:
+                if game.keys_pressed[pygame.K_UP] or game.keys_pressed[pygame.K_w]:
                     dy -= 1
-                elif game.keys_pressed[pygame.K_DOWN] or game.keys_pressed[pygame.K_s]:
+                if game.keys_pressed[pygame.K_DOWN] or game.keys_pressed[pygame.K_s]:
                     dy += 1
-                # TODO: (Task 0) Move over your code from A0 here; adjust
 
-            elif not self._smooth_move: # Precise movement used by the squishy monster level
+            # Precise movement used by the squishy monster level
+            elif not self._smooth_move:
                 if evt == pygame.K_LEFT or evt == pygame.K_a:
                     dx -= 1
                 if evt == pygame.K_RIGHT or evt == pygame.K_d:
@@ -119,18 +129,38 @@ class Player(Actor):
 
             new_x, new_y = self.x + dx, self.y + dy
 
-            # TODO: (Task 0) Move over your code from A0 here; adjust
-            # i.e. Check if move is possible / if star is to be collected, etc.
-
+            # Check if move is possible
             if isinstance(game.get_actor(new_x, new_y), Wall):
                 new_x = self.x
                 new_y = self.y
+            # check if player is trying to pickup shield
+            elif isinstance(game.get_actor(new_x, new_y), Shield):
+                game.get_actor(new_x, new_y).apply_power_up(game)
+                game.remove_actor(game.get_actor(new_x, new_y))
+                self.x = new_x
+                self.y = new_y
+            # check if the player is trying to pickup a key
+            elif isinstance(game.get_actor(new_x, new_y), Key):
+                game.player.has_key = True
+                game.remove_actor(game.get_actor(new_x, new_y))
+                self.x = new_x
+                self.y = new_y
+            # check if player is trying to move onto a bomb
+            elif isinstance(game.get_actor(new_x, new_y), Bomb):
+                if game.player.shields > 0:
+                    game.player.shields -= 1
+                    print(
+                        "you now have " + str(game.player.shields) + " shields")
+                    game.remove_actor(game.get_actor(new_x, new_y))
+                else:
+                    game.game_over()
 
+            # Check if player is trying to pickup a star
             elif isinstance(game.get_actor(new_x, new_y), Star):
                 self._stars_collected += 1
                 game.remove_actor(game.get_actor(new_x, new_y))
 
-            #check if the player is trying to move into a box
+            # check if the player is trying to move into a box
             elif isinstance(game.get_actor(new_x, new_y), Box):
                 if game.get_actor(new_x, new_y).be_pushed(game, dx, dy):
                     self.x = new_x
@@ -138,7 +168,8 @@ class Player(Actor):
                 else:
                     new_x = self.x
                     new_y = self.y
-            #check if the player is trying to open the door
+
+            # check if the player is trying to open the door
             elif isinstance(game.get_actor(new_x, new_y), Door):
                 if game.door_open():
                     self.x = new_x
@@ -149,12 +180,16 @@ class Player(Actor):
                         print("Door won't open unless you collect enough stars")
                     if game.get_level() == 1:
                         print("Door won't open unless all the monsters are dead")
+                    if game.get_level() == 2:
+                        print("Door won't open until you have the key and all"
+                              " monsters are dead")
                     new_x, new_y = self.x, self.y
 
             self.x = new_x
             self.y = new_y
 
 # === Classes for immobile objects === #
+
 
 class Star(Actor):
     """
@@ -187,6 +222,7 @@ class Wall(Actor):
 
         pass
 
+
 class Door(Actor):
     """
     A class to represent a Door in the game
@@ -201,13 +237,71 @@ class Door(Actor):
         """
         pass
 
+
+class Key(Actor):
+    """
+    A class to represent a Key in the game.
+    """
+    x: int
+    y: int
+    icon: pygame.Surface
+
+    def move(self, game: 'Game') -> None:
+        """
+        A key cannot move, so do nothing.
+        """
+        pass
+
+
+class Bomb(Actor):
+    """
+    A class to represent a Bomb in the game, player dies on touch,
+    unless they have a shield.
+    """
+    x: int
+    y: int
+    icon: pygame.Surface
+
+    def move(self, game: 'Game') -> None:
+        """
+        a bomb cannot move, so do nothing.
+        """
+        pass
+
+
+class Shield(Actor):
+    """
+    A class to represent a shield power up in the game, gives the player
+    the power to kill chasers and bombs on contact. does nothing against the boss.
+    """
+    def move(self, game: 'Game') -> None:
+        """
+        A shield power up cannot move, so do nothing.
+        """
+        pass
+
+    def apply_power_up(self, game: 'Game'):
+        """
+        gives the player a shield, so when they come in contact with a chaser or
+        bomb, instead of dying, they destroy it, and lose 1 shield,
+        also tells the player how many shields they currently have,
+        after picking one up
+        """
+        game.player.shields += 1
+        print("you now have " + str(game.player.shields) + " shields")
+
+
 # === Classes for movable objects === #
 
-# TODO: Your class for Box should go here
+
 class Box(Actor):
     """
     A class to represent a box in the game
     """
+    x: int
+    y: int
+    icon: pygame.Surface
+
     def move(self, game: 'Game') -> None:
         """
         A box cannot move on its own, so do nothing
@@ -283,9 +377,8 @@ class Monster(Actor):
     def check_player_death(self, game: 'Game') -> None:
         """Make the game over if this monster has hit the player."""
 
-        # TODO: (Task 0) Complete this method; should be similar to what was
-        # done at the end of Chaser.move for A0
-        # added check to make sure we dont get attribute error for player
+        # check to see if player is already dead,
+        # then check if they should be killed
         if not game.player:
             game.game_over()
         elif game.player.x == self.x and game.player.y == self.y:
@@ -305,28 +398,49 @@ class GhostMonster(Monster):
     _delay_count: int
 
     def __init__(self, icon_file: str, x: int, y: int) -> None:
-        """Initalize a ghost with the given <icon_file> and <x> and <y>
+        """Initialize a ghost with the given <icon_file> and <x> and <y>
         as its position."""
 
         # Set movement with each animation to be 0.5
-        super().__init__(icon_file, x, y, 0.5, 0.5) # uses Monster.__init__
+        super().__init__(icon_file, x, y, 0.5, 0.5)  # uses Monster.__init__
 
     def move(self, game: 'Game') -> None:
         """
         Move the ghost on the <game>'s screen based on the player's location.
         Check if the ghost has caught the player after each move.
         """
-
-        if game.player.x > self.x:
-            self.x += self._dx
-        elif game.player.x < self.x:
-            self.x -= self._dx
-        elif game.player.y > self.y:
-            self.y += self._dy
-        elif game.player.y < self.y:
-            self.y -= self._dy
+        # added check to make sure that player exists
+        if game.player:
+            if game.player.x > self.x:
+                self.x += self._dx
+            elif game.player.x < self.x:
+                self.x -= self._dx
+            elif game.player.y > self.y:
+                self.y += self._dy
+            elif game.player.y < self.y:
+                self.y -= self._dy
 
         self.check_player_death(game)
+
+    def check_player_death(self, game: 'Game') -> None:
+        """Make the game over if this monster has hit the player.
+        for level 2, also check if the player has a shield before ending the game,
+        if they do have a shield, remove that Monster"""
+
+        # check to see if player is already dead,
+        # then check if they should be killed
+        if not game.player:
+            game.game_over()
+        elif game.player.x == self.x and game.player.y == self.y:
+            # this check is for level 2, doesnt matter in other levels
+            # since game.player.shields will be 0.
+            if game.player.shields == 0:
+                game.game_over()
+            else:
+                game.player.shields -= 1
+                print("you now have " + str(game.player.shields) + " shields")
+                game.num_chasers -= 1
+                game.remove_actor(self)
 
 
 class SquishyMonster(Monster):
@@ -343,11 +457,11 @@ class SquishyMonster(Monster):
     _delay_count: int
 
     def __init__(self, icon_file: str, x: int, y: int) -> None:
-        """Initalize a monster with the given <icon_file> and <x> and <y>
+        """Initialize a monster with the given <icon_file> and <x> and <y>
         as its position."""
 
         # Set movement with each animation to be 1 step
-        super().__init__(icon_file, x, y, 1, 1) # uses Monster.__init__
+        super().__init__(icon_file, x, y, 1, 1)  # uses Monster.__init__
 
     def move(self, game: 'Game') -> None:
         """
@@ -356,12 +470,10 @@ class SquishyMonster(Monster):
         hit.
         """
 
-        # TODO: Add code to make the monster bounce off of any non-player actors
+        if self._delay_count == 0:  # delay the monster's movement
 
-        if self._delay_count == 0: # delay the monster's movement
-            #if not isinstance(game.get_actor(self.x, self.y),Wall):
-
-            if isinstance(game.get_actor(self.x + self._dx, self.y + self._dy), (Wall, Box)):
+            if isinstance(game.get_actor(self.x + self._dx, self.y + self._dy),
+                          (Wall, Box, Door)):
                 self._dx = -1 * self._dx
                 self._dy = -1 * self._dy
 
@@ -376,7 +488,88 @@ class SquishyMonster(Monster):
     def die(self, game: 'Game') -> None:
         """Remove this monster from the <game>."""
 
-        # TODO: Complete this method
         game.remove_actor(self)
         game.monster_count -= 1
+
+
+class BossMonster(Monster):
+    """
+    A class to represent a BossMonster that the player must kill,
+    by touching the boss after picking up the shield power up.
+    When the boss dies all the bombs and chasers are destroyed.
+    """
+
+    def __init__(self, icon_file: str, x: int, y: int) -> None:
+        """Initialize a monster with the given <icon_file> and <x> and <y>
+        as its position."""
+
+        super().__init__(icon_file, x, y, 1, 1)
+
+    def move(self, game: 'Game') -> None:
+        """
+        Chase the player, can move through everything except walls.
+        """
+        if game.player:
+            if game.player.x > self.x:
+                if not isinstance(game.get_actor(self.x + self._dx, self.y), Wall):
+                    self.x += self._dx
+            elif game.player.x < self.x:
+                if not isinstance(game.get_actor(self.x - self._dx, self.y), Wall):
+                    self.x -= self._dx
+            elif game.player.y > self.y:
+                if not isinstance(game.get_actor(self.x, self.y + self._dy), Wall):
+                    self.y += self._dy
+            elif game.player.y < self.y:
+                if not isinstance(game.get_actor(self.x, self.y - self._dy), Wall):
+                    self.y -= self._dy
+
+        self.check_player_death(game)
+
+    def spawn_bombs(self, game: 'Game') -> None:
+        """
+        the boss can spawn 2 bombs every 5 seconds,
+        up to a maximum of 10 bombs.
+        bombs kill the player on contact, unless he has a shield.
+        """
+        # the number of bombs that have been spawned max of 2 per call
+        curr_bombs = 0
+        if game.get_num_bombs() < 10:
+            while curr_bombs < 2:
+                x = random.randrange(game.stage_width)
+                y = random.randrange(game.stage_height)
+                if not isinstance(game.get_actor(x, y), Actor):
+                    game.add_actor(Bomb("../images/bomb-24.png", x, y))
+                    game.num_bombs += 1
+                    curr_bombs += 1
+
+    def spawn_chaser(self, game: 'Game') -> None:
+        """
+        the boss can spawn a chaser every 5 seconds, up to 3 chasers
+        chasers kill the player on contact
+        """
+        curr_chasers = 0
+        if game.get_num_chasers() < 3:
+            while curr_chasers < 1:
+                x = random.randrange(game.stage_width)
+                y = random.randrange(game.stage_height)
+                if not isinstance(game.get_actor(x, y), Actor):
+                    game.add_actor(GhostMonster("../images/ghost-24.png", x, y))
+                    game.num_chasers += 1
+                    curr_chasers += 1
+
+    def check_player_death(self, game: 'Game') -> None:
+        """Make the game over if this monster has hit the player,
+        and the player has no shields. if the player has at least 1 shield and a key
+        remove the BossMonster"""
+
+        # check to see if player is already dead,
+        # then check if they should be killed
+        if not game.player:
+            game.game_over()
+        elif game.player.x == self.x and game.player.y == self.y:
+            if game.player.has_key:
+                game.boss = None
+                game.remove_actor(self)
+            else:
+                game.game_over()
 

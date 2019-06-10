@@ -1,0 +1,171 @@
+
+======= PROCESS LOG =======
+Name:
+UtorID:
+Student Number:
+
+This file is where you will tell us details about the process you went through in creating your project. This is where we want a record of your thoughts, rough notes, failed attempts, things that you tried to get to work that didn't work, etc. e.g. "My first step was to figure out what my main classes will be. I figured out they were ... And then I tried to write code for ... This code didn't work because ..."
+
+You have two options for the format (you can also mix and match the two) -
+
+(1)
+A day-to-day journal format.
+
+e.g.
+On Friday, I tried to add [this feature].
+I looked at [this website], which was helpful.
+I managed to almost finish adding it, but [this went wrong].
+I wanted to add it because [...], but decided not to in the end, because [...].
+If I had more time, I would [...]
+
+OR
+
+(2)
+Instead of dividing it up by days, you can divide it up
+by task/feature.
+
+e.g.
+Task 1: Added New Monster
+I tried to add this by [...]. What worked well was [...]
+What didn't work the way I wanted it to was [...]
+
+Task 2: Adding Invisible Treasure
+I tried to add this by [...]. What worked well was [...]
+What didn't work the way I wanted it to was [...]
+
+===========================
+
+YOUR LOG STARTS HERE
+by chaser, i mean GhostMonster
+
+Task 0: BrainStorm
+I want to do something cool, so im getting the idea of doing a boss fight
+where you can pick up power ups that you can pick up and use against the boss
+like speed, shield, and instakill.
+if a character gets a power up, they have that ability.
+power-ups : abilities
+speed : gives the character a 10second 2x speed boost
+instakill : gives the character the ability to kill on touch
+shield : saves the character from death, if either the character steps on a bomb
+or gets touched by a chaser, can be stacked with no limit.
+
+have the game print this to console when the level starts,
+the boss will alternate between these 2 moves every 5 seconds
+The boss will always run away from the player
+spawn chasers: spawns a chaser to chase down the player.
+spawn bombs: spawns 3 bombs randomly on the screen, the player dies if they step on one.
+
+Task 1: Create the final_maze.txt file
+used a B to indicate where the BossMonster will spawn,
+used a K to indicate where the key will spawn
+used X for walls, and P for player.
+used an S to indicate where the speed power ups will spawn.
+used an I to indicate where the instakill power ups will spawn.
+used an H to indicate where the shield power ups will spawn.
+added final_maze.txt to the end of LEVEL_MAPS
+also found icons from open_icon_library-standard to represent each of these actors
+and the bombs.I'll be using the same icons for walls, player and chasers.
+
+Task 2: implement setup_boss_game function to load the level and all the actors.
+started by creating setup_boss_game function, and adding docstring
+then i checked for each of the actors listed above, and created them with their respective icons.
+also created set_boss function in game to set the boss.
+
+Task 3: Create the BossMonster class as a subclass of Monster
+added BossMonster class and completed docstring.
+implemented BossMonster __init__ method.
+implemented BossMonster move method, for now im going to make the monster stay still
+and comment out the power ups and key so I can test the game, to make sure everything loads.
+im getting an error, NoneType object has no attribute 'move',
+after some trouble shooting i found out i had to rearrange my code a bit, and now everything seems to load well.
+
+Task 4: implement the boss's Move method to run away from the player
+decided to remove the instakill power up, and to just have it where if the player touches the boss, he dies.
+also removed the I's from the final_maze.txt file and replaced them with an extra shield and speedup.
+after implementing and testing the boss's move method, i decided to make him chase the player around instead and kill the player on contact,
+since its very easy for the player to corner him right now.
+the bosses movement is working as intended,  i updated the docstring to reflect this change.
+
+Task 5: implement the boss's ability to spawn bombs
+first implement the bomb class as a subclass of actor in the immobile objects section.
+added num_bombs attribute to game class, also added get_num_bombs method in game class to return the number of bombs in the game.
+also imported random into the actors2.py file so i can choose random x and y to spawn bombs on.
+my first implementation works, however i need to make sure bombs don't spawn on another actor,
+so im going to add some if statements in the spawn_bomb method of BossMonster.
+now the bombs get spawned at the right locations, however they are spawning all at once,
+so i need to add a check in the on_loop to check if its been 5 seconds.
+consulted this link for time in pygame : https://www.pygame.org/docs/ref/time.html
+added a check in on_loop to check if the actor is a BossMonster, if it is,
+check if the time passed has been 5 seconds or more, if it has spawn 2 bombs, then reset timer.
+after some testing, this seems to work, im going to implement the player dying when touching a bomb later.
+
+
+Task 6: implement the bosses ability to spawn chasers
+the boss can only have up to 3 chasers alive at any time
+added the num_chasers attribute to the game class to hold the number of chasers in the stage.
+also added get_num_chasers method to return the number of chasers in the stage.
+after implementing the spawn_chasers method of the BossMonster class i had to check when to spawn them in the game.on_loop method.
+instead of checking for 10 seconds to have passed, i realized i can just check how many bombs are in the game.
+while making sure num_chasers < 3.
+ive been having some trouble getting the chasers to spawn at different times, so i am going to change it
+so that chasers spawn the same time as bombs, but still only to a max of 3.
+this works, and chasers kill player on contact as intended.
+
+Task 7: implement power ups for the player
+6 power ups will spawn, 5 shields and 1 speed up in predetermined locations at the start of the game.
+since i had some trouble getting the timer to work for the previous task im going to change my idea a bit,
+and only have 1 speed power up, once the player touches it they get 2x speed for the rest of the level.
+edited the final_maze.txt file by removing speed ups so only 1 remains, and making 5 shields instead, that stack.
+added the PowerUp abstract class, as a subclass of actor.
+added the PowerUp method apply_power_up
+added SpeedUp class, and implemented its apply_power_up method.
+after reading over the player class docstring and attributes, i realized the only way to make the player speed,
+would be to make them move 2 units for every key, however this isn't what i intended, instead of re-writing the player class,
+im just going to remove the speedUp power up and change the games rules, so that you must pick up the key and have a shield,
+before touching the boss to kill him.
+so i removed the PowerUp and SpeedUp classes and now i just have the shield class, which is now a subclass of Actor.
+implemented the apply_power_up method in the Shield class. also had to add a shields attribute to the player class.
+also added a check in the players move method, to see if the player is trying to pickup a shield, then apply the power up.
+now im going to uncomment the part in setup_boss_game to load in the power ups.
+and test picking them up.
+picking up shields works as intended. and they also disappear as intended after being picked up.
+
+Task 8: make the bombs kill the player on contact.
+bomb death works.
+when testing the bombs, i noticed an error in BossMonster, so i added a check in the BossMonsters move method to check if player exists before the monster tries to move.
+
+task 9: make sure shields shield the player from death when they touch a BossMonster, Bomb, or a chaser.
+also shields should remove the bomb, and chasers when they come in contact, and will only remove the BossMonster if the player has the key.
+updated the method check_player_death in the Monster class to first check if the player has any shields before killing them.
+and if they do, then remove the actor.
+Now i need to override the check_player_death method in the BossMonster class to also check if the player has the key.
+added an attribute to the player class, has_key which is a boolean, True if player has the key, False otherwise.
+now i need to add a check in the players move method to see if they are trying to pick up the key, and update player.has_key to True.
+and also remove the key from the stage.
+this works as intended after testing.
+after playing through the game, i realized that the shield shouldn't prevent death from the boss, since the player and boss move at the same speed,
+the player will die anyways after a slight delay. so i changed the Boss's check_player_death so that the shield has no effect against the boss. so the player only needs the key to kill the boss.
+
+task 10: finalizing win condition/ checking for win.
+for the player to win, they must defeat all the chasers by using the shields and pickup the key to defeat the boss, then leave through the door.
+now, when the boss dies everything he has spawned will remain. so the player can either kill the boss quick with the key and head for the door,
+or if they kill the boss and chasers have already spawned, they need to kill the chasers before opening the door.
+the game works as intended.
+
+task 11: adding some console print statements to make the game easier to play
+1) print a message describing how to win the game and what the objects on the screen are
+2) update the objective message to say "kill the boss and avoid the bombs and chasers, read console for more info"
+3) display the players shields when one gets used up.
+
+Task 12: play the game and test
+after playing the game numerous times everything works to my satisfaction, so im done.
+removed the images for the icons and powerups that i decided to remove earlier.
+also realized i should move the check_player_death that checks for shields, from the Monster class to the GhostMonster class.
+and leave the original check_player_death in the Monster class as it was before.
+
+
+
+
+
+
+
