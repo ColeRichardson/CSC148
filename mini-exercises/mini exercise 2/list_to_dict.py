@@ -14,20 +14,24 @@ def list_to_dict(lst: list) -> dict:
 
     Note: Your code MUST be recursive
 
-    >> L = ['a', 'b', ['c', 'd', ['e']]]
-    >> list_to_dict(L)
+    >>> L = ['a', 'b', ['c', 'd', ['e']]]
+    >>> list_to_dict(L)
     {'0': 'a', '1': 'b', '2->0': 'c', '2->1': 'd', '2->2->0': 'e'}
+    >>> L1 = ['a', 'b', 'c', 'd']
+    >>> list_to_dict(L1)
+    {'0': 'a', '1': 'b', '2': 'c', '3': 'd'}
+    >>> L2 = ['a',['b', 'c'], ['d', ['e', 'f']]]
+    >>> list_to_dict(L2)
+    {'0': 'a', '1->0': 'b', '1->1': 'c', '2->0': 'd', '2->1->0': 'e', '2->1->1': 'f'}
     '''
 
-    # YOUR CODE HERE
-    new_dict = {}
-    i = 0
-    j = 0
-    if not isinstance(lst[0], list):
-        
-        return list_to_dict(lst[1:])
-        #  elif isinstance(lst[1:], list):
-    #else:
-    else:
-        return new_dict
+    enum_list = list(enumerate(lst))
+    d = {}
 
+    for elem in enum_list:
+        if not isinstance(elem[1], list):
+            d[str(elem[0])] = str(elem[1])
+        else:
+            for k, v in list_to_dict(elem[1]).items():
+                d[str(elem[0]) + '->' + str(k)] = str(v)
+    return d
