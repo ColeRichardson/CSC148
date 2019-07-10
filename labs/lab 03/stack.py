@@ -103,11 +103,14 @@ def remove_big(s: Stack) -> None:
     >>> s = Stack()
     >>> s.push(1)
     >>> s.push(29)
+    >>> s.push(3)
     >>> s.push(8)
     >>> s.push(4)
     >>> remove_big(s)
     >>> s.pop()
     4
+    >>> s.pop()
+    3
     >>> s.pop()
     1
     >>> s.is_empty()
