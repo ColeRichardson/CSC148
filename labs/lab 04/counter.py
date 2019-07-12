@@ -1,5 +1,5 @@
 class Counter:
-    """A Counter, that starts counting at a certain number and 
+    """A Counter, that starts counting at a certain number and
     increments the count when requested.
 
     === Attributes ===
@@ -10,14 +10,16 @@ class Counter:
     initial: int
     current: int
     increment: int
-    
+
     def __init__(self, init: int, inc: int) -> None:
-        """Initialize a new counter with the given <init> as initial number, 
+        """Initialize a new counter with the given <init> as initial number,
         and <inc> as increment value.
         """
 
         # YOUR CODE HERE
-        pass
+        self.init = init
+        self.inc = inc
+        self.current = init
 
 
     def count(self) -> None:
@@ -30,13 +32,13 @@ class Counter:
         """
 
         # YOUR CODE HERE
-        pass        
-        
-        
+        pass
+        self.current += self.inc
+
     def reset(self) -> None:
         """Reset the current value to be the same as the initial value
         this counter started with.
-        
+
         >>> c = Counter(10, 2)
         >>> c.count()
         >>> c.count()
@@ -48,20 +50,21 @@ class Counter:
         """
 
         # YOUR CODE HERE
-        pass
+        self.current = self.init
 
     def change_incrementor(self, new_inc: int) -> None:
         """Update this counter's increment value to <new_inc>.
 
         >>> c = Counter(10, 2)
         >>> c.change_incrementor(5)
-        >>> c.increment
+        >>> c.inc
         5
         """
-        
-        old_current = self.current
+
+        """old_current = self.current
         old_initial = self.initial
         self = Counter(old_current, new_inc)
         self.initial = old_initial
+        """
+        self.inc = new_inc
 
-        
