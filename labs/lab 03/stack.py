@@ -116,6 +116,7 @@ def remove_big(s: Stack) -> None:
     >>> s.is_empty()
     True
     """
+
     s1 = Stack()
     while not s.is_empty():
         s1.push(s.pop())

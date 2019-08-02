@@ -71,6 +71,7 @@ def product(integer_queue: Queue) -> int:
     >>> q.is_empty()
     True
     """
+
     product = 1
     while not integer_queue.is_empty():
         item = integer_queue.dequeue()
@@ -94,6 +95,20 @@ def product_star(integer_queue: Queue) -> int:
     >>> prime_line.is_empty()
     False
     """
+    q1 = Queue()
+    product = 1
+    while not integer_queue.is_empty():
+        item = integer_queue.dequeue()
+        product *= item
+        q1.enqueue(item)
+    while not q1.is_empty():
+        integer_queue.enqueue(q1.dequeue())
+
+
+
+
+
+
     copy_queue = Queue()
     product = 1
     while not integer_queue.is_empty():
@@ -128,6 +143,7 @@ def list_queue(q: Queue, lst: List):
     5
     7
     """
+
     for item in lst:
         q.enqueue(item)
     while not q.is_empty():

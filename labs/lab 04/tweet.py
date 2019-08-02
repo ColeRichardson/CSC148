@@ -28,11 +28,14 @@ class Tweet:
         >>> t.content
         'Hey!'
         >>> t.likes
-        0        
+        0
         """
 
         # YOUR CODE HERE
-        pass
+        self.content = what
+        self.userid = who
+        self.created_at = when
+        self.likes = 0
 
     def like(self, n: int) -> None:
         """Record the fact that this tweet received <n> likes.
@@ -46,7 +49,7 @@ class Tweet:
         """
 
         # YOUR CODE HERE
-        pass
+        self.likes += 1
 
     def edit(self, new_content: str) -> None:
         """Replace the contents of this tweet with the new message.
@@ -58,9 +61,9 @@ class Tweet:
         """
 
         # YOUR CODE HERE
-        pass
+        self.content = new_content
 
-    
+
 class User:
     """A Twitter user.
 
@@ -83,7 +86,9 @@ class User:
         """
 
         # YOUR CODE HERE
-        pass
+        self.userid = id_
+        self.bio = bio
+        self.tweets = []
 
     def tweet(self, message: str) -> None:
         """Record that this User made a tweet with the given content.
@@ -92,6 +97,6 @@ class User:
         """
 
         # YOUR CODE HERE
-        pass
-
+        tweet = Tweet(self.userid, date.today(), message)
+        self.tweets.append(tweet)
 

@@ -39,8 +39,13 @@ class Tournament:
         """
 
         # YOUR CODE HERE
-        pass
-    
+        self.team_stats[team1][0] += 1
+        self.team_stats[team2][0] += 1
+        if score1 > score2:
+            self.team_stats[team1][1] += 1
+        else:
+            self.team_stats[team2][1] += 1
+
     def best_percentage(self) -> str:
         """Return the team name with the highest percentage of games won.
 
@@ -50,4 +55,4 @@ class Tournament:
         """
 
         # YOUR CODE HERE
-        pass
+
