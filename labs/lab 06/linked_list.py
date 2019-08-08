@@ -168,7 +168,7 @@ class LinkedList:
         >>> len(lst)
         3
         """
-        
+
 
     def __contains__(self, item: Any) -> bool:
         """Return whether <item> is in this list.
