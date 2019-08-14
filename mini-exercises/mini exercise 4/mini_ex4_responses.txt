@@ -1,0 +1,31 @@
+REFER TO THE INSTRUCTIONS WEBPAGE FOR THE CONTEXT OF THESE QUESTIONS.
+
+Q1: What does the given quicksort use as a pivot?
+it uses the middle most element, between l u and mid.
+
+Q2: What is this modified quicksort's worst case runtime?
+on a sorted list the worst case runtime is O(NlogN), because the pivot point is
+the middle element. So the pivot will always be the correct middle element,
+and everything to the left and right is already in the right place.
+
+Q3: How does this alternate partition compare to the one from lecture?
+the alternate partition is faster when within the list there exists,
+an element or multiple elements that hold the same value as the pivot.
+Because it will avoid extra steps by holding the value where it belongs.
+the partition from lecture does not have a check to compare the pivot with the
+values at i or j, so this partition from lecture would be faster
+when there is no elements in the list that hold the same value as the pivot.
+Essentially the more duplicates in the list that need to be sorted,
+the higher the likelihood that the alternate partition will perform faster,
+depending on the pivot, whether the value has duplicates.
+
+Q4: How does your new quicksort.py work?
+changed u-1 to u in the partition call. so that the partition is made of the
+full list. I also changed the 2 quicksort calls that occur later, so the first
+recursive call passes in (a,j,u) so it sorts all the elements greater than the pivot.
+and for the second recusrive call i passed in (a, l, i) so that the quicksort
+will sort all the elements to the left of the pivot that are less than the pivot.
+it's not quite working and im not sure why i think it has something to do with
+how im choosing the pivot location. Because after running and checking i noticed
+that the pivot increments down and that the greatest element in the list appears
+as the first element after being sorted which is wrong.
